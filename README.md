@@ -1,15 +1,8 @@
-```markdown
 # Systolic Array Based 2D Convolution Accelerator
 
 ## Overview
-This project implements a Verilog-based systolic array accelerator for 2D convolution on a small multi-channel input tensor. The design demonstrates the complete hardware flow for convolution, starting from `im2col` address generation and ending with aligned convolution outputs from a systolic array.
+This project implements a Verilog-based systolic array accelerator for 2D convolution on a small multi-channel(1x2x3x5) input tensor. The design demonstrates the complete hardware flow for convolution, starting from `im2col` address generation and ending with aligned convolution outputs from a systolic array.
 
-The implementation is intended for:
-- RTL simulation
-- Cadence Genus synthesis
-- Innovus backend flow
-
----
 
 ## Problem Configuration
 
@@ -188,37 +181,6 @@ For the current hardcoded tensor and the two active kernels, the expected aligne
 
 ---
 
-## Verification Strategy
-
-The design was verified hierarchically.
-
-### 1. `im2col_addr_gen`
-Verified:
-- correct address sequencing
-- total of `64` address reads
-- correct final address coverage
-
-### 2. `S2P_Skew_OneShot`
-Verified:
-- 8-sample capture
-- one-shot launch behavior
-- staircase-style skew across outputs
-
-### 3. `Processing_Element`
-Verified:
-- weight load phase
-- signed multiplication
-- signed accumulation
-- correct `psum_out`
-
-### 4. Full Top Module
-Verified:
-- complete convolution pipeline
-- correct aligned outputs
-- correct multi-kernel behavior
-- zero output for inactive columns
-
----
 
 ## Running Simulation
 
@@ -265,7 +227,7 @@ After synthesis, the mapped netlist can be used in Innovus for place-and-route.
 
 ---
 
-## Key Contributions
+## Summary
 This project demonstrates:
 - hardware mapping of 2D convolution using a systolic array
 - `im2col`-based window extraction
@@ -274,18 +236,5 @@ This project demonstrates:
 - hierarchical RTL verification
 - synthesis-ready hardware design flow
 
----
-
-## Future Improvements
-Possible extensions include:
-- enabling all 8 kernel columns
-- supporting larger tensors and kernels
-- adding programmable weight storage
-- integrating memory interfaces
-- performing post-synthesis and post-layout verification
-
----
-
-## Summary
 This project presents a compact but complete hardware implementation of multi-channel convolution using a systolic array. It demonstrates how convolution can be transformed into structured dataflow through `im2col`, mapped onto a regular MAC array, and verified from module level up to full-system integration.
 ```
